@@ -1,0 +1,33 @@
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>Archer v Aliens</title>
+<script type="text/javascript" src="simpleGame.js"></script>
+<script type="text/javascript" src="game.js"></script>
+</head>
+<body onload="init()">
+	<div id="lose-text"
+	style="
+		font-size:10em;
+		color: white;
+		position:absolute;
+		top:220;
+		left:300;
+		z-index:2;">
+	</div>
+	<div id="leaderboard"
+	style="position: absolute; display:none; top:20; left:40; z-index:3; color:white; font-family:Courier;">
+		<p>Leaderboard</p>
+		<table id="leaderboard-list" style="color:white;" align="left">
+		<tr>
+			<th> </th>
+			<th>Player</th>
+			<th>Time</th>
+			<th>Kills</th>
+			<th>Shots</th>
+		</tr>
+		</table>
+	</div>
+</body>
+</html>
