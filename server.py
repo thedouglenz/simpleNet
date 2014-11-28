@@ -1,7 +1,7 @@
 import sys, socket
 
 import os
-from flask import Flask
+from flask import Flask, send_from_directory
 
 HANDSHAKE = '\
 HTTP/1.1 101 Web Socket Protocol Handshake\r\n\
@@ -71,4 +71,4 @@ class Server:
 # Flask
 @app.route('/')
 def hello():
-	return 'hello world!'
+	return send_from_directory('game', 'index.html')
