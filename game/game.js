@@ -61,7 +61,7 @@ function debug(something) {
 }
 
 function GoodMan() {
-	tGoodMan = new Sprite(desert, "goodman.png", 45, 45);
+	tGoodMan = new Sprite(desert, "game/goodman.png", 45, 45);
 	tGoodMan.setSpeed(0);
 	tGoodMan.setPosition(center_x, center_y);
 
@@ -115,7 +115,7 @@ function GoodMan() {
 }
 
 function Bullet() {
-	var tBullet = new Sprite(desert, "bullet.png", 5, 15);
+	var tBullet = new Sprite(desert, "game/bullet.png", 5, 15);
 	tBullet.setBoundAction(DIE);
 	tBullet.hide();
 
@@ -138,7 +138,7 @@ function Bullet() {
 }
 
 function Alien() {
-	tAlien = new Sprite(desert, "alien.png", 32, 64);
+	tAlien = new Sprite(desert, "game/alien.png", 32, 64);
 	tAlien.alive = true;
 	tAlien.setSpeed(gameSpeed);
 
@@ -167,11 +167,11 @@ function Alien() {
 		 */
 		var index = aliens.indexOf(this);
 		if(deadBuffer.length >= NUM_REMAINS) {
-			deadBuffer[0].setImage('alien.png');
+			deadBuffer[0].setImage('game/alien.png');
 			waitBuffer.push(deadBuffer[0]);
 			deadBuffer.splice(0, 1);
 		}
-		this.setImage('deadalien.png');
+		this.setImage('game/deadalien.png');
 		this.setSpeed(0);
 		deadBuffer.push(this);
 		aliens.splice(index, 1);
@@ -189,7 +189,7 @@ function init() {
 
 	desert = new AwesomeScene();
 	//desert.setBG("#4C4C4C");
-	desert.setTileBackground("bgrepeat.png");
+	desert.setTileBackground("game/bgrepeat.png");
 	center_x = desert.width / 2;
 	center_y = desert.height / 2;
 
@@ -239,10 +239,10 @@ function initAliens() {
 }
 
 function initSounds() {
-	owMP3 = new Sound("ow.mp3");
-	owOgg = new Sound("ow.ogg");
-	shootArrowMP3 = new Sound("shootarrow.mp3");
-	shootArrowOgg = new Sound("shootarrow.ogg");
+	owMP3 = new Sound("game/ow.mp3");
+	owOgg = new Sound("game/ow.ogg");
+	shootArrowMP3 = new Sound("game/shootarrow.mp3");
+	shootArrowOgg = new Sound("game/shootarrow.ogg");
 }
 
 function update() {

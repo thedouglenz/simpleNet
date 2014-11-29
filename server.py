@@ -14,7 +14,7 @@ WebSocket-Location: ws://localhost:9999/\r\n\r\n\
 HOST='localhost'
 PORT=9999
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/game', static_folder='game')
 
 class SimpleMessage:
 	def __init__(self, msg, sender=None):
@@ -72,3 +72,10 @@ class Server:
 @app.route('/')
 def hello():
 	return send_from_directory('game', 'index.html')
+
+@app.route('/<any(css, img, js, sound):folder>/<path:filename>')
+def toplevel_static(folder, filename):
+    filename = safe_join(folder, filename)
+    cache_timeout = app.get_send_file_max_age(filename)
+    return send_from_directory(app.static_folder, filename,
+                               cache_timeout=cache_timeout)
