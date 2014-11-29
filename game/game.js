@@ -60,6 +60,8 @@ function debug(something) {
 	console.log(something);
 }
 
+var ws; // WebSocket Object
+
 function GoodMan() {
 	tGoodMan = new Sprite(desert, "game/goodman.png", 45, 45);
 	tGoodMan.setSpeed(0);
@@ -206,6 +208,20 @@ function init() {
 	bullets_fired = 0;
 
 	desert.start();
+
+	ws = new WebSocket("ws://localhost:9999/")
+	ws.onopen = function(e) {
+		console.log(this.readyState);
+		console.log("Opening a WebSocket connection to ws://localhost:9999/")
+		ws.send("Hello server");
+		setInterval(function() {
+			ws.send(JSON.stringify(goodMan));
+		}, 1000);
+	};
+	ws.onmessage = function(e) { 
+		console.log(e.data);
+	};
+	ws.onclose = function() {}
 }
 
 function AwesomeScene() {

@@ -6,19 +6,24 @@ from flask import Flask, send_from_directory
 import thread
 import time
 
-HANDSHAKE = '\
-HTTP/1.1 101 Web Socket Protocol Handshake\r\n\
-Upgrade: WebSocket\r\n\
-Connection: Upgrade\r\n\
-WebSocket-Origin: http://localhost:8000\r\n\
-WebSocket-Location: ws://localhost:9999/\r\n\r\n\
-'
+import hashlib, base64
 
 HOST='localhost'
 PORT=9999
 
+# Start Flask server
 app = Flask(__name__, static_url_path='/game', static_folder='game')
 app.config['DEBUG'] = True
+
+
+def compute_accept_key(key):
+	# concatenate key with magic string and sha1 it
+	h = hashlib.sha1(key)
+	h.update("258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
+	# return the base 64 encoding of it
+	return base64.b64encode(h.digest())
+
+
 
 class SimpleMessage:
 	def __init__(self, msg, sender=None):
@@ -33,13 +38,6 @@ class Server:
 		self.header = ''
 		self.sock = None
 		self.shake_done = False
-		self.handshake_message = '\
-		HTTP/1.1 101 Web Socket Protocol Handshake\r\n\
-		Upgrade: WebSocket\r\n\
-		Connection: Upgrade\r\n\
-		WebSocket-Origin: http://localhost:8000\r\n\
-		WebSocket-Location: ws://localhost:9999/\r\n\r\n\
-		'
 
 	def is_shaked(self):
 		return self.shake_done
@@ -56,9 +54,16 @@ class Server:
 	def shake(self):
 		self.header += self.client.recv(16)
 		if self.header.find('\r\n\r\n') != -1:
-			self.data = self.header.split('\r\n\r\n', 1)[1]
+			self.data = self.header.split('\r\n\r\n', 1)[0]
+			key = self.data[self.data.find('Sec-WebSocket-Key: ') + 19:self.data.find('\r\nSec-WebSocket-Extensions: ')]
+			accept_key = compute_accept_key(key)
+
+			handshake_msg = 'HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept:' + accept_key + '\r\n\r\n'
+
+			print("Sent to client: " + handshake_msg)
+
 			self.shake_done = True
-			self.client.send(self.handshake_message)
+			self.client.send(handshake_msg)
 
 	def serve(self):
 		self.data += self.client.recv(128)
@@ -70,12 +75,13 @@ class Server:
 			if msg[0] == '\x00':
 				validated.append(msg[1:])
 		for v in validated:
+			print(v)
+			sys.stdout.flush()
 			self.client.send('\x00' + v + '\xff')
 
 # Flask
 @app.route('/')
 def root():
-	thread.start_new_thread(server, ())
 	print('root')
 	sys.stdout.flush()
 	return send_from_directory('game', 'index.html')
@@ -101,3 +107,5 @@ def server():
 		else:
 			s.serve()
 
+# Start WebSocket server
+thread.start_new_thread(server, ())
