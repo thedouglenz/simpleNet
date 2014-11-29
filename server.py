@@ -3,6 +3,9 @@ import sys, socket
 import os
 from flask import Flask, send_from_directory
 
+import thread
+import time
+
 HANDSHAKE = '\
 HTTP/1.1 101 Web Socket Protocol Handshake\r\n\
 Upgrade: WebSocket\r\n\
@@ -15,6 +18,7 @@ HOST='localhost'
 PORT=9999
 
 app = Flask(__name__, static_url_path='/game', static_folder='game')
+app.config['DEBUG'] = True
 
 class SimpleMessage:
 	def __init__(self, msg, sender=None):
@@ -70,7 +74,10 @@ class Server:
 
 # Flask
 @app.route('/')
-def hello():
+def root():
+	thread.start_new_thread(server, ())
+	print('root')
+	sys.stdout.flush()
 	return send_from_directory('game', 'index.html')
 
 @app.route('/<any(css, img, js, sound):folder>/<path:filename>')
@@ -79,3 +86,18 @@ def toplevel_static(folder, filename):
     cache_timeout = app.get_send_file_max_age(filename)
     return send_from_directory(app.static_folder, filename,
                                cache_timeout=cache_timeout)
+
+# game server
+def server():
+	print('Server started')
+	sys.stdout.flush()
+	s = Server()
+	s.init_sockets(HOST, PORT)
+	s.listen()
+
+	while True:
+		if not s.is_shaked():
+			s.shake()
+		else:
+			s.serve()
+
