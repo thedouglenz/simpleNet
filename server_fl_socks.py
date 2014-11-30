@@ -32,7 +32,10 @@ gs = GameServer()
 @sockets.route('/echo')
 def echo_socket(ws):
 	while True:
-		message = ws.receive()
+		try:
+			message = ws.receive()
+		except Exception:
+			pass
 		if message:
 			print("Got message: " + message)
 
