@@ -72,6 +72,7 @@ function GoodMan() {
 }
 
 function init() {
+	ws = new SocketClientConnection('echo');
 	desert = new AwesomeScene();
 
 	desert.setTileBackground("game/bgrepeat.png");
@@ -81,8 +82,6 @@ function init() {
 	goodMan = new GoodMan();
 
 	desert.start();
-
-	ws = new SocketClientConnection('echo');
 
 	ws.setReceive(function(e) {
 		console.log(e.data);
