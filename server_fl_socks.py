@@ -1,5 +1,6 @@
 from flask import Flask, send_from_directory
 from flask_sockets import Sockets
+import json
 
 # Start Flask server
 app = Flask(__name__, static_url_path='/game', static_folder='game')
@@ -10,7 +11,7 @@ class GameServer(object):
 	""" Interface for games wanting to communicate via WebSockets """
 
 	def __init__(self):
-		self.clients = list()
+		self.clients = {}
 
 # Flask
 @app.route('/')
@@ -30,18 +31,23 @@ gs = GameServer()
 # Flask sockets
 @sockets.route('/echo')
 def echo_socket(ws):
-	if(ws not in gs.clients):
-		gs.clients.append(ws)
 	while True:
 		try:
 			message = ws.receive()
 		except Exception:
-			if ws in gs.clients:
-				gs.clients.remove(ws)
+			print('COnnection error')
 		if message:
 			print("Got message: " + message)
-			for c in gs.clients:
-				try:
-					c.send(message)
-				except Exception:
-					gs.clients.remove(c)
+
+			obj = json.loads(message)
+
+			if 'player_register' in obj:			# new player registration
+				new_player_key = obj['player_register']
+				print("New player: " + new_player_key)
+				gs.clients[new_player_key] = ws 	# add new player to the client list
+			else:
+				for c in gs.clients:
+					try:							# try to send messages
+						gs.clients[c].send(message)
+					except Exception:				# remove clients whose connections are closed
+						del gs.clients[c]
