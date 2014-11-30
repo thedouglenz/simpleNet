@@ -98,14 +98,14 @@ function init() {
 	desert.start();
 
 	ws.setReceive(function(e) {
-		console.log(e.data);
 		obj = JSON.parse(e.data);
 		k = obj.player_key;
 		if(!playerExists(k)) {
+			debug("Player " + k + " doesn't exist yet.");
 			players[k] = new GoodMan(k);
 			player_keys.push(k);
 		}
-		players[k].moveMe(obj.x, obj.y);
+		//players[k].moveMe(obj.x, obj.y);
 	});
 
 	// Transmit is used to start sending regular updates to the WebSocket server of information
