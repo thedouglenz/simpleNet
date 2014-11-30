@@ -89,6 +89,10 @@ function init() {
 	});
 
 	ws.addPlayer(goodMan);
+
+	setInterval(function() {
+		ws.sendObject({player: goodMan.player_key, x:goodMan.x, y:goodMan.y });
+	}, 2000);
 }
 
 function AwesomeScene() {

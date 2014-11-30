@@ -1040,7 +1040,7 @@ function SocketClientConnection(type) {
     var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var key = '';
     for(var i=0; i<10; i++) {
-      g = Math.floor(Math.random() * (36 - 0 + 1) + 0);
+      g = Math.floor(Math.random() * (35 - 0 + 1) + 0);
       key += chars[g];
     }
     return key;
