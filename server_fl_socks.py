@@ -19,8 +19,13 @@ def toplevel_static(folder, filename):
     return send_from_directory(app.static_folder, filename,
                                cache_timeout=cache_timeout)
 
+
+# Flask sockets
 @sockets.route('/echo')
 def echo_socket(ws):
 	while True:
 		message = ws.receive()
-		ws.send(message)
+		if message:
+			ws.send(message)
+
+if __name__ == '__main__':
