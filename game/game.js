@@ -1,45 +1,12 @@
 /* Global constants */
-var NUM_ALIENS=20; // How many aliens we start with
-var NUM_REMAINS=5; // How many dead aliens stay on the screen
-
-var NUM_BULLETS=100; // Our ammo limit
-
-var BULLET_SPEED = 12; // Bullet speed  (should probably be faster than player move speed)
-var BULLET_DELAY = 0.05; // Our gun's reality check
 
 var PLAYER_MOVE_SPEED=10; // How fast player can move
 
-var PROGRESS_INTERVAL = 1; // How many seconds before game speeds up
-var GAMESPEED_INCREMENT = 1.0005; // How much game speeds up every progress interval
-
-var RESPAWN_PROBABILITY = 0.8; // 
 
 /* Global varibales */
 var desert; // Scene
 
-var aliens; // Alien Sprite
-var deadBuffer; // dead alien buffer
-var waitBuffer; // waiting to respawn buffer
-
 var goodMan; // Good man Sprite
-var bullets; // Bullet Sprites array
-
-var timer; // Game timer
-var bullet_delay_timer; // Bullet delay timer
-
-var gameSpeed = 2; // Starting speed of aliens
-var current_bullet=0; // Bullet iterator
-
-var aliens_slaughtered; // Count of slaughtered aliens
-var bullets_fired; // Useful for ratio (kills/shots_fired)
-
-// Game sounds
-var owWav;
-var owOgg;
-var owMP3;
-var shootArrowWav;
-var shootArrowOgg;
-var shootArrowMP3;
 
 // Scene/screen/logistical properties
 var center_x;
@@ -50,10 +17,6 @@ var game_bottom = 600;
 var game_left = 0;
 var game_right = 800;
 
-// Leaderboard text and HTML elements
-var finalReport;
-var leaderboard_list;
-var leaderboard;
 
 function debug(something) {
 	/* Easier to type console logging */
@@ -96,14 +59,6 @@ function GoodMan() {
 		if(SOUTHEAST.condition()) {
 			this.setImgAngle(SOUTHEAST.angle);
 		}
-		if(keysDown[K_SPACE]) {
-			var elapsed = bullet_delay_timer.getElapsedTime();
-			if(elapsed > BULLET_DELAY) {
-				bullets[current_bullet].fire();
-				current_bullet = current_bullet % (NUM_BULLETS-1) + 1;
-				bullet_delay_timer.reset();
-			}
-		}
 	}
 
 	tGoodMan.isDead = function() {
@@ -114,74 +69,6 @@ function GoodMan() {
 	}
 
 	return tGoodMan;
-}
-
-function Bullet() {
-	var tBullet = new Sprite(desert, "game/bullet.png", 5, 15);
-	tBullet.setBoundAction(DIE);
-	tBullet.hide();
-
-	tBullet.fire = function() {
-		shootArrowOgg.play();
-		shootArrowMP3.play();
-		this.show();
-		this.setPosition(goodMan.x, goodMan.y);
-		this.setMoveAngle(goodMan.getImgAngle());
-		this.setImgAngle(goodMan.getImgAngle() + 90);
-		this.setSpeed(BULLET_SPEED);
-		bullets_fired++;
-	}
-
-	tBullet.die = function() {
-		this.hide();
-	}
-
-	return tBullet;
-}
-
-function Alien() {
-	tAlien = new Sprite(desert, "game/alien.png", 32, 64);
-	tAlien.alive = true;
-	tAlien.setSpeed(gameSpeed);
-
-	tAlien.updateSpeed = function() {
-		this.setSpeed(gameSpeed);
-	}
-
-	tAlien.updateAngle = function() {
-		this.setMoveAngle(goodMan.angleTo(this));
-		this.setImgAngle(goodMan.angleTo(this));
-	}
-
- 	var start = null;
- 	start = randomStartPosition();
-	tAlien.setPosition(start.x, start.y);
-	tAlien.setMoveAngle(goodMan.angleTo(tAlien));
-
-	tAlien.die = function() {
-		/*
-			Insert dead aliens into a dead buffer. If the
-			dead buffer grows significantly large, take one
-			at a time and get them ready to respawn. This
-			allows some dead bodies to remain on the scene.
-			NUM_REMAINS dead bodies maximum can stay on the
-			scene.
-		 */
-		var index = aliens.indexOf(this);
-		if(deadBuffer.length >= NUM_REMAINS) {
-			deadBuffer[0].setImage('game/alien.png');
-			waitBuffer.push(deadBuffer[0]);
-			deadBuffer.splice(0, 1);
-		}
-		this.setImage('game/deadalien.png');
-		this.setSpeed(0);
-		deadBuffer.push(this);
-		aliens.splice(index, 1);
-
-		this.alive = false;
-	}
-
-	return tAlien;
 }
 
 function init() {

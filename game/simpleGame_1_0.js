@@ -1032,6 +1032,7 @@ function SocketClientConnection(type) {
 
   this.addPlayer = function(sprite) {
     key = this.generatePlayerKey();
+    console.log(key);
     sprite.player_key = key;
     this.sendObject({'player_register': key});
   }
