@@ -8,7 +8,7 @@ var desert; // Scene
 
 var goodMan; // Good man Sprite
 
-var players = {};
+var players;
 var player_keys;
 
 // Scene/screen/logistical properties
@@ -82,7 +82,7 @@ function GoodMan(player_key) {
 }
 
 function init() {
-	players = Array();
+	players = {};
 	player_keys = Array();
 	ws = new SocketClientConnection('echo');
 	desert = new AwesomeScene();
