@@ -1012,6 +1012,7 @@ function SocketClientConnection(type) {
   this.ws = new WebSocket("wss://" + location.host + "/" + this.type);
 
   this.ws.onopen = function(e) {
+    console.log("Socket Client Ready");
     this.on = true;
   }
 
