@@ -209,7 +209,7 @@ function init() {
 
 	desert.start();
 
-	ws = new WebSocket("ws://localhost:5000/echo")
+	ws = new WebSocket("wss://localhost:5000/echo")
 	ws.onopen = function(e) {
 		console.log(this.readyState);
 		console.log("Opening a WebSocket connection to ws://localhost:9999/")
