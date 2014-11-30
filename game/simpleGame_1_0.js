@@ -1025,7 +1025,9 @@ function SocketClientConnection(type) {
     }
   }
 
-  this.ws.onmessage = this.received;
+  this.setReceive = function(f) {
+    this.ws.onmessage = f;
+  }
 }
 
 /*

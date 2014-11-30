@@ -214,9 +214,9 @@ function init() {
 		ws.sendObject({ date: new Date() });
 	}, 1000);
 
-	ws.received = function(e) {
+	ws.setReceive(function(e) {
 		console.log(e.data);
-	}
+	});
 }
 
 function AwesomeScene() {
