@@ -1026,10 +1026,6 @@ function SocketClientConnection(type) {
   }
 
   this.ws.onmessage = this.received;
-
-  this.received = function(e) {
-    // overwrite me
-  }
 }
 
 /*
