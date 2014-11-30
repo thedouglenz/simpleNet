@@ -1021,7 +1021,7 @@ function SocketClientConnection(type) {
 
   this.sendObject = function(data_obj) {
     if(this.ready()) {
-      this.ws.send(JSON.strigify(data_obj));
+      this.ws.send(JSON.stringify(data_obj));
     }
   }
 
