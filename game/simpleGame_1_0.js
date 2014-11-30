@@ -1010,10 +1010,10 @@ function SocketClientConnection(type) {
   this.on = false;
 
   this.ws = new WebSocket("wss://" + location.host + "/" + this.type);
-
+  that = this;
   this.ws.onopen = function(e) {
     console.log("Socket Client Ready");
-    this.on = true;
+    that.on = true;
   }
 
   this.ready = function() {
