@@ -1007,21 +1007,20 @@ function Animation(spriteSheet, imgWidth, imgHeight, cellWidth, cellHeight){
 
 function SocketClientConnection(type) {
   this.type = type;
-  this.on = false;
-
   this.ws = new WebSocket("wss://" + location.host + "/" + this.type);
-  that = this;
+
   this.ws.onopen = function(e) {
+    // When the connection is first opened
     console.log("Socket Client Ready");
-    that.on = true;
   }
 
   this.ready = function() {
-    return this.on;
+    // Ready returns whether the WebSocket object is ready and connected successfully.
+    return this.ws.readyState === 1 ? true : false;
   }
 
-  this.sendMessage = function(data_obj) {
-    if(this.on) {
+  this.sendObject = function(data_obj) {
+    if(this.ready()) {
       this.ws.send(JSON.strigify(data_obj));
     }
   }
