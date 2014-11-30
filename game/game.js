@@ -67,7 +67,7 @@ function GoodMan() {
 		}
 		return false;
 	}
-
+	ws.addPlayer(tGoodMan);
 	return tGoodMan;
 }
 
@@ -87,8 +87,6 @@ function init() {
 	ws.setReceive(function(e) {
 		console.log(e.data);
 	});
-
-	ws.addPlayer(goodMan);
 
 	setInterval(function() {
 		ws.sendObject({player: goodMan.player_key, x:goodMan.x, y:goodMan.y });

@@ -1034,8 +1034,8 @@ function SocketClientConnection(type) {
     key = this.generatePlayerKey();
     console.log(key);
     sprite.player_key = key;
-    this.sendObject({player_register: key});
   }
+  
   this.generatePlayerKey = function() {
     var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var key = '';
