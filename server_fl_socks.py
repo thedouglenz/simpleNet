@@ -30,13 +30,11 @@ gs = GameServer()
 # Flask sockets
 @sockets.route('/echo')
 def echo_socket(ws):
-	if(ws not in gs.clients) {
+	if(ws not in gs.clients):
 		gs.clients.append(ws)
-	}
 	while True:
 		message = ws.receive()
 		if message:
 			print("Got message: " + message)
 			for c in gs.clients:
 				c.send(message)
-
