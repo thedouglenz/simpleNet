@@ -36,7 +36,8 @@ def echo_socket(ws):
 		try:
 			message = ws.receive()
 		except Exception:
-			gs.clients.remove(ws)
+			if ws in gs.clients:
+				gs.clients.remove(ws)
 		if message:
 			print("Got message: " + message)
 			for c in gs.clients:
