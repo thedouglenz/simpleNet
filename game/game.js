@@ -211,8 +211,8 @@ function init() {
 
 	ws = new SocketClientConnection('echo');
 	setInterval(function() {
-		ws.sendObject({ date: new Date() });
-	}, 1000);
+		ws.sendObject({ player_x: goodMan.x, player_y:goodMan.y });
+	}, 3000);
 
 	ws.setReceive(function(e) {
 		console.log(e.data);
