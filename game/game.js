@@ -8,6 +8,8 @@ var desert; // Scene
 
 var goodMan; // Good man Sprite
 
+var players;
+
 // Scene/screen/logistical properties
 var center_x;
 var center_y;
@@ -87,9 +89,9 @@ function init() {
 		console.log(e.data);
 	});
 
-	setInterval(function() {
-		ws.sendObject(goodMan.player_key, {player: goodMan.player_key, x:goodMan.x, y:goodMan.y });
-	}, 2000);
+	// Transmit is used to start sending regular updates to the WebSocket server of information
+	// we want the server to save
+	ws.transmit(goodMan.player_key, {x:goodMan.x, y:goodMan.y });
 }
 
 function AwesomeScene() {

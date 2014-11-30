@@ -1007,6 +1007,7 @@ function Animation(spriteSheet, imgWidth, imgHeight, cellWidth, cellHeight){
 
 function SocketClientConnection(type) {
   this.type = type;
+  this.players = Array();
   this.ws = new WebSocket("wss://" + location.host + "/" + this.type);
 
   this.ws.onopen = function(e) {
@@ -1026,8 +1027,23 @@ function SocketClientConnection(type) {
     }
   }
 
+  // The function passed in should be the function we want to run when
+  // new messages are received from the server
   this.setReceive = function(f) {
-    this.ws.onmessage = f;
+    this.ws.onmessage = function(e) {
+      // First discover new players
+      this.discoverNewPlayers(e.data);
+      // Then run the user defined function
+      f(e);
+    }
+  }
+
+  this.discoverNewPlayers = function(json_data) {
+    data = JSON.parse(json_data);
+    if (this.players.indexOf(data.player_key) === -1) {
+      // this player_key isn't in the list yet
+      this.players.push(data.player_key)
+    }
   }
 
   this.addPlayer = function(sprite) {
@@ -1035,7 +1051,7 @@ function SocketClientConnection(type) {
     console.log(key);
     sprite.player_key = key;
   }
-  
+
   this.generatePlayerKey = function() {
     var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var key = '';
@@ -1044,6 +1060,13 @@ function SocketClientConnection(type) {
       key += chars[g];
     }
     return key;
+  }
+
+  // start broadcasting player data to the WebSockets server
+  this.transmit = function(player_key, data_object) {
+    setInterval(function() {
+      ws.sendObject(player_key, data_object);
+    }, 50); // For 20 frames / second
   }
 }
 
