@@ -88,7 +88,7 @@ function init() {
 	});
 
 	setInterval(function() {
-		ws.sendObject({player: goodMan.player_key, x:goodMan.x, y:goodMan.y });
+		ws.sendObject(goodMan.player_key, {player: goodMan.player_key, x:goodMan.x, y:goodMan.y });
 	}, 2000);
 }
 
