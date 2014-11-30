@@ -1,1 +1,1 @@
-web: gunicorn server:app --log-file=-
+web: gunicorn -k flask_sockets.worker server_fl_socks:app --log-file=-

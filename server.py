@@ -2,6 +2,7 @@ import sys, socket
 
 import os
 from flask import Flask, send_from_directory
+from flask.ext.socketio import SocketIO, emit
 
 import thread
 import time
@@ -14,6 +15,8 @@ PORT=9999
 # Start Flask server
 app = Flask(__name__, static_url_path='/game', static_folder='game')
 app.config['DEBUG'] = True
+app.config['SECRET_KEY'] = 'WhySoSerious?'
+socketio = SocketIO(app)
 
 
 def compute_accept_key(key):
@@ -60,30 +63,26 @@ class Server:
 
 			handshake_msg = 'HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept:' + accept_key + '\r\n\r\n'
 
-			print("Sent to client: " + handshake_msg)
-
 			self.shake_done = True
 			self.client.send(handshake_msg)
 
 	def serve(self):
-		self.data += self.client.recv(128)
-		print(self.data)
+		self.data += self.client.recv(2048)
 		validated = []
 		msgs = self.data.split('\xff')
 		self.data = msgs.pop()
+		print(self.data.decode('utf8'))
 		for msg in msgs:
 			if msg[0] == '\x00':
 				validated.append(msg[1:])
 		for v in validated:
 			print(v)
-			sys.stdout.flush()
 			self.client.send('\x00' + v + '\xff')
 
 # Flask
 @app.route('/')
 def root():
 	print('root')
-	sys.stdout.flush()
 	return send_from_directory('game', 'index.html')
 
 @app.route('/<any(css, img, js, sound):folder>/<path:filename>')
@@ -93,10 +92,13 @@ def toplevel_static(folder, filename):
     return send_from_directory(app.static_folder, filename,
                                cache_timeout=cache_timeout)
 
+@socketio.on('connect', namespace='/test')
+def test_connect():
+	emit('my response', {'data' : 'Connected'})
+
 # game server
 def server():
 	print('Server started')
-	sys.stdout.flush()
 	s = Server()
 	s.init_sockets(HOST, PORT)
 	s.listen()
@@ -107,5 +109,8 @@ def server():
 		else:
 			s.serve()
 
+if __name__ == '__main__':
+	socketio.run(app)
+
 # Start WebSocket server
-thread.start_new_thread(server, ())
+# thread.start_new_thread(server, ())
