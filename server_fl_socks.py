@@ -1,8 +1,6 @@
 from flask import Flask, send_from_directory
 from flask_sockets import Sockets
 
-import 
-
 # Start Flask server
 app = Flask(__name__, static_url_path='/game', static_folder='game')
 app.config['DEBUG'] = True
