@@ -43,11 +43,12 @@ def echo_socket(ws):
 
 			if 'player_key' in obj:			# new player registration
 				new_player_key = obj['player_key']
-				print("New player: " + new_player_key)
-				gs.clients[new_player_key] = ws 	# add new player to the client list
-			else:
-				for c in gs.clients:
-					try:							# try to send messages
-						gs.clients[c].send(message)
-					except Exception:				# remove clients whose connections are closed
-						del gs.clients[c]
+				if new_player_key not in gs.clients:
+					print("New player: " + new_player_key)
+					gs.clients[new_player_key] = ws 	# add new player to the client list
+			
+			for c in gs.clients:
+				try:							# try to send messages
+					gs.clients[c].send(message)
+				except Exception:				# remove clients whose connections are closed
+					del gs.clients[c]
