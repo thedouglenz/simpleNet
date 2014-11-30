@@ -24,7 +24,7 @@ def toplevel_static(folder, filename):
 @sockets.route('/echo')
 def echo_socket(ws):
 	while True:
-		# Errors suck
 		message = ws.receive()
 		if message:
+			print("Got message: " + message)
 			ws.send(message)
