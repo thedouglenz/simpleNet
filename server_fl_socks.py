@@ -25,14 +25,18 @@ def toplevel_static(folder, filename):
     return send_from_directory(app.static_folder, filename,
                                cache_timeout=cache_timeout)
 
+gs = GameServer()
 
 # Flask sockets
 @sockets.route('/echo')
 def echo_socket(ws):
-	print dir(ws)
+	if(ws not in gs.clients) {
+		gs.clients.append(ws)
+	}
 	while True:
 		message = ws.receive()
 		if message:
 			print("Got message: " + message)
-			ws.send(message)
+			for c in gs.clients:
+				c.send(message)
 
