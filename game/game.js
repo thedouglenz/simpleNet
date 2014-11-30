@@ -209,10 +209,9 @@ function init() {
 
 	desert.start();
 
-	ws = new WebSocket("wss://localhost:5000/echo")
+	ws = new WebSocket("wss://" + location.host + "/echo");
 	ws.onopen = function(e) {
 		console.log(this.readyState);
-		console.log("Opening a WebSocket connection to ws://localhost:9999/")
 		ws.send("Hello server");
 		setInterval(function() {
 			ws.send(new Date());
