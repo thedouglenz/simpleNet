@@ -1004,6 +1004,34 @@ function Animation(spriteSheet, imgWidth, imgHeight, cellWidth, cellHeight){
   
 }// end of Animation class
 
+
+function SocketClientConnection(type) {
+  this.type = type;
+  this.on = false;
+
+  this.ws = new WebSocket("wss://" + location.host + "/" + this.type);
+
+  this.ws.onopen = function(e) {
+    this.on = true;
+  }
+
+  this.ready = function() {
+    return this.on;
+  }
+
+  this.sendMessage = function(data_obj) {
+    if(this.on) {
+      this.ws.send(JSON.strigify(data_obj));
+    }
+  }
+
+  this.ws.onmessage = receieved;
+
+  this.received = function(e) {
+    // overwrite me
+  }
+}
+
 /*
 The following classes are experimental, and are not yet
 tested for widespread use.

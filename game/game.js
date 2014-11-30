@@ -209,18 +209,14 @@ function init() {
 
 	desert.start();
 
-	ws = new WebSocket("wss://" + location.host + "/echo");
-	ws.onopen = function(e) {
-		console.log(this.readyState);
-		ws.send("Hello server");
-		setInterval(function() {
-			ws.send(new Date());
-		}, 1000);
-	};
-	ws.onmessage = function(e) { 
+	ws = new SocketClientConnection('echo');
+	setInterval(function() {
+		ws.sendMessage(new Date);
+	}, 1000);
+
+	ws.received = function(e) {
 		console.log(e.data);
-	};
-	ws.onclose = function() {}
+	}
 }
 
 function AwesomeScene() {
