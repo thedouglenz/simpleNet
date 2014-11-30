@@ -1019,14 +1019,30 @@ function SocketClientConnection(type) {
     return this.ws.readyState === 1 ? true : false;
   }
 
-  this.sendObject = function(data_obj) {
+  this.sendObject = function(player_key, data_obj) {
     if(this.ready()) {
+      data_obj.player_key = player_key;
       this.ws.send(JSON.stringify(data_obj));
     }
   }
 
   this.setReceive = function(f) {
     this.ws.onmessage = f;
+  }
+
+  this.addPlayer = function(sprite) {
+    key = this.generatePlayerKey();
+    sprite.player_key = key;
+    this.sendObject({'player_register': key});
+  }
+  this.generatePlayerKey = function() {
+    var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+    var key = '';
+    for(var i=0; i<10; i++) {
+      g = Math.floor(Math.random() * (36 - 0 + 1) + 0);
+      key += chars[g];
+    }
+    return key;
   }
 }
 

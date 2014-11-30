@@ -185,38 +185,23 @@ function Alien() {
 }
 
 function init() {
-	finalReport = document.getElementById("lose-text");
-	leaderboard = document.getElementById("leaderboard");
-	leaderboard_list = document.getElementById("leaderboard-list");
-
 	desert = new AwesomeScene();
-	//desert.setBG("#4C4C4C");
+
 	desert.setTileBackground("game/bgrepeat.png");
 	center_x = desert.width / 2;
 	center_y = desert.height / 2;
 
 	goodMan = new GoodMan();
 
-	initBullets();	
-	initAliens();
-	initSounds();
-
-	timer = new Timer();
-	bullet_delay_timer = new Timer();
-
-	aliens_slaughtered = 0;
-	bullets_fired = 0;
-
 	desert.start();
 
 	ws = new SocketClientConnection('echo');
-	setInterval(function() {
-		ws.sendObject({ player_x: goodMan.x, player_y:goodMan.y });
-	}, 3000);
 
 	ws.setReceive(function(e) {
 		console.log(e.data);
 	});
+
+	ws.addPlayer(goodMan);
 }
 
 function AwesomeScene() {
@@ -228,169 +213,16 @@ function AwesomeScene() {
 	return scene;
 }
 
-function initBullets() {
-	/* Make some bullets */
-	bullets = new Array(NUM_BULLETS);
-	for(var i=0; i<NUM_BULLETS; i++) {
-		bullets[i] = new Bullet();
-	}
-}
-
-function initAliens() {
-	/* 
-		Init all the living aliens and make dynamic length arrays
-		for all the dead or waiting to respawn ones.
-	 */
-	aliens = new Array(NUM_ALIENS);
-	for(var i=0; i < NUM_ALIENS; i++) {
-		aliens[i] = new Alien();
-	}
-	deadBuffer = new Array();
-	waitBuffer = new Array();
-}
-
-function initSounds() {
-	owMP3 = new Sound("game/ow.mp3");
-	owOgg = new Sound("game/ow.ogg");
-	shootArrowMP3 = new Sound("game/shootarrow.mp3");
-	shootArrowOgg = new Sound("game/shootarrow.ogg");
-}
-
 function update() {
 	desert.clear();
 	tGoodMan.checkKeys();
-	checkTime();
-	checkKills();
-	respawnAliens();
-	for(var i=0; i<deadBuffer.length; i++) {
-		deadBuffer[i].update();
-	}
-	for(var i=0; i<aliens.length; i++) {
-		aliens[i].updateSpeed();
-		aliens[i].updateAngle();
-		aliens[i].update();
-	}
-	for(var i=0; i<NUM_BULLETS; i++) {
-		bullets[i].update();
-	}
-	checkLose();
 	goodMan.update();
-}
-
-function checkKills() {
-	/* Does any bullet collide with any alien? */
-	for(var i=0; i<aliens.length; i++) {
-		for(var j=0; j<NUM_BULLETS; j++) {
-			if(typeof aliens[i] !== "undefined"){
-				if(bullets[j].collidesWith(aliens[i])) {
-					owOgg.play();
-					owMP3.play();
-					aliens[i].die();
-					bullets[j].die();
-					aliens_slaughtered++;
-				}
-			}
-		}
-	}
-}
-
-function respawnAliens() {
-	/*	
-		Make sure there are aliens waiting to be respawned
-		and respawn them if there's enough
-	 */
-	if(waitBuffer.length >= 5) {
-		if(Math.random() < RESPAWN_PROBABILITY) {
-			for(var i=0; i < waitBuffer.length; i++) {
-				var s = randomStartPosition();
-				waitBuffer[i].setPosition(s.x, s.y);
-				waitBuffer[i].show();
-				waitBuffer[i].setSpeed(gameSpeed);
-				aliens.push(waitBuffer[i]);
-				waitBuffer.splice(i, 1);
-			}
-		}
-	}
-}
-
-function checkTime() {
-	/*
-		Function to slightly add difficulty to the game
-		as time progresses
-	 */
-	now = timer.getElapsedTime();
-	if(now % PROGRESS_INTERVAL > -1 && now % PROGRESS_INTERVAL < 1) {
-		// if we're "close to" another progress interval (PROGRESS_INTERVAL seconds)
-		gameSpeed*=GAMESPEED_INCREMENT;
-	}
-}
-
-function checkLose() {
-	/* 
-		Easy function to verify that player has died
-		makes update() look cleaner
-	*/
-	if(goodMan.isDead()) endGame();
-}
-
-
-function endGame() {
-	/* Record the game time and calculate the leaderboard results */
-	var total_time = Math.floor(timer.getElapsedTime());
-	desert.stop();
-	finalReport.innerHTML = total_time + 's';
-
-	name = window.prompt("Your name: ");
-	if (name) {
-		scoresArray = JSON.parse(localStorage.getItem('scoresArray'));
-		if(!scoresArray) {
-			scoresArray = new Array(); 
-		}
-		if(scoresArray.length < 1) {
-			scoresArray.push({name:name, score:total_time, kills:aliens_slaughtered, shots:bullets_fired});
-		} else {
-			for(var i=0; i < scoresArray.length; i++) {
-				if(total_time >= scoresArray[i]['score']) {
-					scoresArray.splice(i, 0, {name:name,score:total_time, kills:aliens_slaughtered, shots:bullets_fired});
-					break;
-				}
-				if(i == scoresArray.length-1) {
-					scoresArray.push({name:name, score:total_time, kills:aliens_slaughtered, shots:bullets_fired});
-					break;
-				}
-			}
-		}
-		localStorage.setItem("scoresArray", JSON.stringify(scoresArray));
-
-		ten_or_less = (scoresArray.length > 10) ? 10 : scoresArray.length;
-
-		for(var i=0; i < ten_or_less; i++) {
-			leaderboard_list.innerHTML = leaderboard_list.innerHTML
-			+ "<tr><td>" + (i + 1) + "</td>"
-			+ "<td style='color:red;'>" + scoresArray[i]['name'] + "</td>"
-			+ "<td>" + scoresArray[i]['score'] + "s </td>"
-			+ "<td>" + scoresArray[i]['kills'] + "</td>"
-			+ "<td>" + scoresArray[i]['shots'] + "</td>"
-			+ "</tr>";
-		}
-	}
-
-	leaderboard.style.display = 'block';
 }
 
 function randInterval(min,max)
 {
 	/* Simply give me a random integer between two values */
 	return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-function randomStartPosition() {
-	/* Return a random off-screen position */
-	var offX = [randInterval(-40, -10), randInterval(game_right + 10, game_right + 30)];
-	var offY = [randInterval(-40, -10), randInterval(game_bottom + 10, game_bottom + 30)];
-	return randInterval(0,1) ? 
-	{ x : offX[randInterval(0,1)], y : randInterval(game_top-40, game_bottom + 50) } : 
-	{ x : randInterval(game_left-40,game_right+50), y : offY[randInterval(0,1)] }
 }
 
 function degreesToRadians(degrees) {

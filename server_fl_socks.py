@@ -10,7 +10,7 @@ class GameServer(object):
 	""" Interface for games wanting to communicate via WebSockets """
 
 	def __init__(self):
-		self.clients = list()
+		self.clients = {}
 
 # Flask
 @app.route('/')
