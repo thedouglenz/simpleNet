@@ -1030,20 +1030,7 @@ function SocketClientConnection(type) {
   // The function passed in should be the function we want to run when
   // new messages are received from the server
   this.setReceive = function(f) {
-    this.ws.onmessage = function(e) {
-      // First discover new players
-      this.discoverNewPlayers(e.data);
-      // Then run the user defined function
-      f(e);
-    }
-  }
-
-  this.discoverNewPlayers = function(json_data) {
-    data = JSON.parse(json_data);
-    if (this.players.indexOf(data.player_key) === -1) {
-      // this player_key isn't in the list yet
-      this.players.push(data.player_key)
-    }
+    this.ws.onmessage = f;
   }
 
   this.addPlayer = function(sprite) {

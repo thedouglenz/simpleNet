@@ -93,7 +93,6 @@ function init() {
 
 	goodMan = new GoodMan();
 
-	players.push(goodMan);
 	player_keys.push(goodMan.player_key);
 
 	desert.start();
