@@ -1052,6 +1052,10 @@ function SocketClientConnection(type) {
     sprite.player_key = key;
   }
 
+  this.getAllPlayerKeys = function() {
+    return this.players;
+  }
+
   this.generatePlayerKey = function() {
     var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var key = '';

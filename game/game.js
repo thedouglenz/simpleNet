@@ -8,7 +8,8 @@ var desert; // Scene
 
 var goodMan; // Good man Sprite
 
-var players;
+var players = {};
+var player_keys;
 
 // Scene/screen/logistical properties
 var center_x;
@@ -27,10 +28,11 @@ function debug(something) {
 
 var ws; // WebSocket Object
 
-function GoodMan() {
+function GoodMan(player_key) {
 	tGoodMan = new Sprite(desert, "game/goodman.png", 45, 45);
 	tGoodMan.setSpeed(0);
 	tGoodMan.setPosition(center_x, center_y);
+	tGoodMan.player_key = player_key;
 
 	tGoodMan.checkKeys = function() {
 		if(NORTH.condition()) {
@@ -69,11 +71,19 @@ function GoodMan() {
 		}
 		return false;
 	}
+
+	tGoodMan.moveMe = function(new_x, new_y) {
+		this.x = new_x;
+		this.y = new_y;
+	}
+
 	ws.addPlayer(tGoodMan);
 	return tGoodMan;
 }
 
 function init() {
+	players = Array();
+	player_keys = Array();
 	ws = new SocketClientConnection('echo');
 	desert = new AwesomeScene();
 
@@ -83,15 +93,29 @@ function init() {
 
 	goodMan = new GoodMan();
 
+	players.push(goodMan);
+	player_keys.push(goodMan.player_key);
+
 	desert.start();
 
 	ws.setReceive(function(e) {
 		console.log(e.data);
+		obj = JSON.parse(e.data);
+		k = obj.player_key;
+		if(!playerExists(k)) {
+			players[k] = new GoodMan(k);
+			player_keys.push(k);
+		}
+		players[k].moveMe(obj.x, obj.y);
 	});
 
 	// Transmit is used to start sending regular updates to the WebSocket server of information
 	// we want the server to save
 	ws.transmit(goodMan.player_key, {x:goodMan.x, y:goodMan.y });
+}
+
+function playerExists(key) {
+	return player_keys.indexOf(key) > -1;
 }
 
 function AwesomeScene() {
@@ -105,8 +129,7 @@ function AwesomeScene() {
 
 function update() {
 	desert.clear();
-	tGoodMan.checkKeys();
-	goodMan.update();
+	goodMan.checkKeys();
 }
 
 function randInterval(min,max)
