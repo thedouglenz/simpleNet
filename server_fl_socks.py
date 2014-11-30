@@ -1,10 +1,18 @@
 from flask import Flask, send_from_directory
 from flask_sockets import Sockets
 
+import 
+
 # Start Flask server
 app = Flask(__name__, static_url_path='/game', static_folder='game')
 app.config['DEBUG'] = True
 sockets = Sockets(app)
+
+class GameServer(object):
+	""" Interface for games wanting to communicate via WebSockets """
+
+	def __init__(self):
+		self.clients = list()
 
 # Flask
 @app.route('/')
@@ -23,8 +31,10 @@ def toplevel_static(folder, filename):
 # Flask sockets
 @sockets.route('/echo')
 def echo_socket(ws):
+	print dir(ws)
 	while True:
 		message = ws.receive()
 		if message:
 			print("Got message: " + message)
 			ws.send(message)
+
