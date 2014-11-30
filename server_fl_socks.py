@@ -10,7 +10,7 @@ class GameServer(object):
 	""" Interface for games wanting to communicate via WebSockets """
 
 	def __init__(self):
-		self.clients = []
+		self.clients = list()
 
 # Flask
 @app.route('/')
@@ -33,7 +33,10 @@ def echo_socket(ws):
 	if(ws not in gs.clients):
 		gs.clients.append(ws)
 	while True:
-		message = ws.receive()
+		try:
+			message = ws.receive()
+		except Exception:
+			gs.cleints.remove(ws)
 		if message:
 			print("Got message: " + message)
 			for c in gs.clients:
