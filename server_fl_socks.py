@@ -28,5 +28,3 @@ def echo_socket(ws):
 		message = ws.receive()
 		if message:
 			ws.send(message)
-
-if __name__ == '__main__':
