@@ -211,7 +211,7 @@ function init() {
 
 	ws = new SocketClientConnection('echo');
 	setInterval(function() {
-		ws.sendMessage(new Date);
+		ws.sendMessage(new Date());
 	}, 1000);
 
 	ws.received = function(e) {
