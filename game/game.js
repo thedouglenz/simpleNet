@@ -27,6 +27,7 @@ function debug(something) {
 }
 
 var ws; // WebSocket Object
+var my_player_key;
 
 function GoodMan(player_key) {
 	tGoodMan = new Sprite(desert, "game/goodman.png", 45, 45);
@@ -111,7 +112,7 @@ function init() {
 
 	// Transmit is used to start sending regular updates to the WebSocket server of information
 	// we want the server to save
-	ws.transmit(goodMan.player_key, {x:goodMan.x, y:goodMan.y });
+	ws.transmit(players[my_player_key].player_key, {x:players[my_player_key].x, y:players[my_player_key].y });
 }
 
 function playerExists(key) {
@@ -129,10 +130,12 @@ function AwesomeScene() {
 
 function update() {
 	desert.clear();
-	goodMan.checkKeys();
-	goodMan.update();
+	players[my_player_key].checkKeys();
+	players[my_player_key].update();
 	for(var key in players) {
-		players[key].update();
+		if(key != my_player_key) {
+			players[key].update();
+		}
 	}
 }
 
