@@ -1005,7 +1005,7 @@ function Animation(spriteSheet, imgWidth, imgHeight, cellWidth, cellHeight){
 }// end of Animation class
 
 
-function SocketClientConnection(type) {
+function MultiplayerConnection(type) {
   this.type = type;
   this.players = Array();
   this.ws = new WebSocket("wss://" + location.host + "/" + this.type);

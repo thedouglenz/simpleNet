@@ -29,7 +29,7 @@ def toplevel_static(folder, filename):
 gs = GameServer()
 
 # Flask sockets
-@sockets.route('/echo')
+@sockets.route('/broadscast')
 def echo_socket(ws):
 	# TODO: Dictionary changes size DURING iteration
 	delete_list = []
