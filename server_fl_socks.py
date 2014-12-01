@@ -50,6 +50,7 @@ def echo_socket(ws):
 				try:							# try to send messages
 					gs.clients[c].send(message)
 				except Exception:				# remove clients whose connections are closed
+					print('Deleting client ' + c)
 					delete_list.append(gs.clients[c])
 			for i in delete_list:
 				del i
