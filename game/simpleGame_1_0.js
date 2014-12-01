@@ -1048,7 +1048,7 @@ function MultiplayerConnection(type) {
   }
 
   this.transmit = function(player_key, data_object) {
-    ws.sendObject(player_key, data_object);
+    this.sendObject(player_key, data_object);
   }
 }
 
