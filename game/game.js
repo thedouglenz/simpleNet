@@ -78,7 +78,6 @@ function GoodMan(player_key) {
 		this.y = new_y;
 	}
 
-	ws.addPlayer(tGoodMan);
 	return tGoodMan;
 }
 
@@ -93,6 +92,8 @@ function init() {
 	center_y = desert.height / 2;
 
 	goodMan = new GoodMan();
+
+	ws.addPlayer(goodMan);
 
 	player_keys.push(goodMan.player_key);
 	players[goodMan.player_key] = goodMan;
