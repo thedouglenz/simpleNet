@@ -109,7 +109,9 @@ function init() {
 			players[k] = new GoodMan(k);
 			player_keys.push(k);
 		}
-		players[k].moveMe(obj.x, obj.y);
+		if(k != my_player_key) {
+			players[k].moveMe(obj.x, obj.y);
+		}
 	});
 
 	// Transmit is used to start sending regular updates to the WebSocket server of information
