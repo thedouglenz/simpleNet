@@ -138,6 +138,7 @@ function AwesomeScene() {
 function update() {
 	desert.clear();
 	players[my_player_key].checkKeys();
+	players[my_player_key].transmit();
 	players[my_player_key].update();
 	for(var key in players) {
 		if(key != my_player_key) {
