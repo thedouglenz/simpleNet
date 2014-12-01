@@ -31,6 +31,8 @@ gs = GameServer()
 # Flask sockets
 @sockets.route('/echo')
 def echo_socket(ws):
+	# TODO: Dictionary changes size DURING iteration
+	delete_list = []
 	while True:
 		try:
 			message = ws.receive()
@@ -48,4 +50,6 @@ def echo_socket(ws):
 				try:							# try to send messages
 					gs.clients[c].send(message)
 				except Exception:				# remove clients whose connections are closed
-					del gs.clients[c]
+					delete_list.append(gs.clients[c])
+			for i in delete_list:
+				del i
