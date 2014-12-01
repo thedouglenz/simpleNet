@@ -130,6 +130,9 @@ function AwesomeScene() {
 function update() {
 	desert.clear();
 	goodMan.checkKeys();
+	for(var key in players) {
+		players[key].update();
+	}
 }
 
 function randInterval(min,max)
