@@ -130,6 +130,7 @@ function AwesomeScene() {
 function update() {
 	desert.clear();
 	goodMan.checkKeys();
+	goodMan.update();
 	for(var key in players) {
 		players[key].update();
 	}
