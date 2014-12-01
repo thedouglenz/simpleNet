@@ -1053,11 +1053,8 @@ function SocketClientConnection(type) {
     return key;
   }
 
-  // start broadcasting player data to the WebSockets server
   this.transmit = function(player_key, data_object) {
-    setInterval(function() {
-      ws.sendObject(player_key, data_object);
-    }, 50); // For 20 frames / second
+    ws.sendObject(player_key, data_object);
   }
 }
 

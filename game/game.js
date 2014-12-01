@@ -78,6 +78,12 @@ function GoodMan(player_key) {
 		this.y = new_y;
 	}
 
+	tGoodMan.transmit = function() {
+		// Transmit is used to start sending regular updates to the WebSocket server of information
+		// we want the server to use
+		ws.transmit(my_player_key, {x:players[my_player_key].x, y:players[my_player_key].y });
+	}
+
 	return tGoodMan;
 }
 
@@ -114,10 +120,6 @@ function init() {
 			players[k].moveMe(obj.x, obj.y);
 		}
 	});
-
-	// Transmit is used to start sending regular updates to the WebSocket server of information
-	// we want the server to save
-	ws.transmit(players[my_player_key].player_key, {x:players[my_player_key].x, y:players[my_player_key].y });
 }
 
 function playerExists(key) {
