@@ -97,6 +97,8 @@ function init() {
 	player_keys.push(goodMan.player_key);
 	players[goodMan.player_key] = goodMan;
 
+	my_player_key = goodMan.player_key;
+
 	desert.start();
 
 	ws.setReceive(function(e) {
