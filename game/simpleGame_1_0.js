@@ -1010,11 +1010,6 @@ function SocketClientConnection(type) {
   this.players = Array();
   this.ws = new WebSocket("wss://" + location.host + "/" + this.type);
 
-  this.ws.onopen = function(e) {
-    // When the connection is first opened
-    console.log("Socket Client Ready");
-  }
-
   this.ready = function() {
     // Ready returns whether the WebSocket object is ready and connected successfully.
     return this.ws.readyState === 1 ? true : false;
@@ -1035,7 +1030,6 @@ function SocketClientConnection(type) {
 
   this.addPlayer = function(sprite) {
     key = this.generatePlayerKey();
-    console.log(key);
     sprite.player_key = key;
   }
 

@@ -37,14 +37,11 @@ def echo_socket(ws):
 		except Exception:
 			pass
 		if message:
-			print("Got message: " + message)
-
 			obj = json.loads(message)
 
 			if 'player_key' in obj:			# new player registration
 				new_player_key = obj['player_key']
 				if new_player_key not in gs.clients:
-					print("New player: " + new_player_key)
 					gs.clients[new_player_key] = ws 	# add new player to the client list
 			
 			for c in gs.clients:

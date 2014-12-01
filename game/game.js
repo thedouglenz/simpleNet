@@ -112,7 +112,6 @@ function init() {
 		obj = JSON.parse(e.data);
 		k = obj.player_key;
 		if(!playerExists(k)) {
-			debug("Player " + k + " doesn't exist yet.");
 			players[k] = new GoodMan(k);
 			player_keys.push(k);
 		}
