@@ -29,7 +29,7 @@ def toplevel_static(folder, filename):
 gs = GameServer()
 
 # Flask sockets
-@sockets.route('/broadscast')
+@sockets.route('/broadcast')
 def echo_socket(ws):
 	# TODO: Dictionary changes size DURING iteration
 	delete_list = []
@@ -39,7 +39,7 @@ def echo_socket(ws):
 		except Exception:
 			pass
 		if message:
-			print('Got message: ' + message)
+			#print('Got message: ' + message)
 			obj = json.loads(message)
 
 			if 'player_key' in obj:			# new player registration
