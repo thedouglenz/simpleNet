@@ -2,21 +2,19 @@ from flask import Flask, send_from_directory
 from flask_sockets import Sockets
 import json
 
-# Start Flask server
+# Start Flask server + init flask_sockets.Socket
 app = Flask(__name__, static_url_path='/game', static_folder='game')
 app.config['DEBUG'] = True
 sockets = Sockets(app)
 
 class GameServer(object):
-	""" Interface for games wanting to communicate via WebSockets """
-
+	""" Expandable game server object """
 	def __init__(self):
 		self.clients = {}
 
 # Flask
 @app.route('/')
 def root():
-	print('root')
 	return send_from_directory('game', 'index.html')
 
 @app.route('/<any(css, img, js, sound):folder>/<path:filename>')
@@ -31,26 +29,24 @@ gs = GameServer()
 # Flask sockets
 @sockets.route('/broadcast')
 def echo_socket(ws):
-	# TODO: Dictionary changes size DURING iteration
-	delete_list = []
+	delete_list = []									# list of delete-able clients (determined when we can't message them)
 	while True:
 		try:
-			message = ws.receive()
+			message = ws.receive()	# try to receive incoming connection message or do nothing
 		except Exception:
 			pass
 		if message:
-			obj = json.loads(message)
+			obj = json.loads(message)	# if we got a message, parse it from json into a dict
 
-			if 'player_key' in obj:			# new player registration
+			if 'player_key' in obj:						# new player registration
 				new_player_key = obj['player_key']
 				if new_player_key not in gs.clients:
 					gs.clients[new_player_key] = ws 	# add new player to the client list
 			
 			for c in gs.clients:
-				try:							# try to send messages
+				try:									# try to send messages
 					gs.clients[c].send(message)
-				except Exception:				# remove clients whose connections are closed
-					print('Deleting client ' + c)
+				except Exception:						# remove clients whose connections are closed
 					delete_list.append(gs.clients[c])
 			for i in delete_list:
 				del i
