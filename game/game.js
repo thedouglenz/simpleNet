@@ -11,6 +11,9 @@ var center_y;
 var mp; 			// MultiplayerConnection Object
 var my_player_key;	// global player key
 
+var typingTimer; 	// Timer for better typing
+var REASONABLE_TYPE_WAIT = 0.25 	// Seconds between key presses for chat
+
 function Player(player_key) {
 	// make a sprite
 	tPlayer = new Sprite(sc, "game/fishy_sprite_sheet.png", 100, 100); tPlayer.setSpeed(0); tPlayer.setPosition(center_x, center_y);
@@ -52,12 +55,15 @@ function Player(player_key) {
 		if(SOUTHEAST.condition()) {
 			this.setImgAngle(SOUTHEAST.angle);
 		}
-		for(var i=0; i<chatChars[0].length; i++) {
-			if(keysDown[chatChars[0][i]]) {
-				this.typeChar(chatChars[1][i]);
+		if(typingTimer.getElapsedTime() >= 0.25) {		// Handle chat characters with a typing timer
+			for(var i=0; i<chatChars[0].length; i++) {
+				if(keysDown[chatChars[0][i]]) {
+					this.typeChar(chatChars[1][i]);
+				}
 			}
+			if(keysDown[13]) this.clearChat();
+			typingTimer.reset();
 		}
-		if(keysDown[13]) this.clearChat();
 	}
 
 	tPlayer.moveMe = function(new_x, new_y) {  // Quick move, causes choppy motion, don't use ever, even now
@@ -126,6 +132,9 @@ function init() {
 
 	// Start the scene
 	sc.start();
+
+	// Start the chat/typing time
+	typingTimer = new Timer();
 
 	// setReceive is the behavior that should take place when a new update is received
 	// from the server
