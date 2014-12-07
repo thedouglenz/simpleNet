@@ -52,6 +52,12 @@ function Player(player_key) {
 		if(SOUTHEAST.condition()) {
 			this.setImgAngle(SOUTHEAST.angle);
 		}
+		for(var i=0; i<chatChars[0].length; i++) {
+			if(keysDown[chatChars[0][i]]) {
+				this.typeChar(chatChars[1][i]);
+			}
+		}
+		if(keysDown[13]) this.clearChat();
 	}
 
 	tPlayer.moveMe = function(new_x, new_y) {  // Quick move, causes choppy motion, don't use ever, even now
@@ -60,7 +66,34 @@ function Player(player_key) {
 	}
 
 	tPlayer.transmit = function() { // What to send to server. First arg is always a player key
-		mp.transmit(my_player_key, {x:players[my_player_key].x, y:players[my_player_key].y, heading:players[my_player_key].getImgAngle() });
+		mp.transmit(my_player_key, {x:players[my_player_key].x, y:players[my_player_key].y, heading:players[my_player_key].getImgAngle(), chat:players[my_player_key].getText() });
+	}
+
+	tPlayer.textbox = document.createElement("p");	// create a paragraph
+	tPlayer.textbox.setAttribute("id", "chatbox");  // set id for css 
+	tPlayer.textbox.style.position = "absolute";	// Make position absolute
+	tPlayer.textbox.style.left = tPlayer.x;			// move the textbox
+	tPlayer.textbox.style.top = tPlayer.y;
+
+	tPlayer.typeChar = function(character) {
+		this.textbox.innerHTML += character;
+	}
+
+	tPlayer.clearChat = function() {
+		this.textbox.innerHTML = '';
+	}
+
+	tPlayer.getText = function() {
+		return this.textbox.innerHTML;
+	}
+
+	tPlayer.setText = function(text) {
+		this.textbox.innerHTML = text;
+	}
+
+	tPlayer.moveChat = function() {
+		this.textbox.style.left = this.x;
+		this.textbox.style.top = this.y;
 	}
 
 	return tPlayer;
@@ -104,6 +137,7 @@ function init() {
 		if(k != my_player_key) {					// if the key isn't our own
 			players[k].setImgAngle(obj.heading);	//  set the image angle of other players
 			players[k].moveMe(obj.x, obj.y);		// 	move the associated player
+			players[k].setText(obj.chat);
 		}
 	});
 }
@@ -174,6 +208,10 @@ var SOUTHEAST = {
 	condition : function() {return keysDown[K_DOWN] && keysDown[K_RIGHT]},
 	angle : 135
 }
+
+var chatChars = 
+	[[K_A, K_B, K_C, K_D, K_E, K_F, K_G, K_H, K_I, K_J, K_K, K_L, K_M, K_N, K_O, K_P, K_Q, K_R, K_S, K_T, K_U, K_V, K_W, K_X, K_Y, K_Z,],
+	['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']];
 
 /* AwesomeScene inherits from Scene and implements a repeating image background */
 function AwesomeScene() {
