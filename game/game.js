@@ -13,7 +13,11 @@ var my_player_key;	// global player key
 
 var chatHelper;		// An input field that helps keep things straight during chat time
 var typingTimer; 	// Timer for better typing
-// var REASONABLE_TYPE_WAIT = 0.05 	// Seconds between key presses for chat
+
+var waterSoundWav;		// A water sound
+var waterSoundOgg;
+
+var notTooManySoundsTimer;
 
 function Player(player_key) {
 	// make a sprite
@@ -62,6 +66,11 @@ function Player(player_key) {
 			}
 		}
 		if(keysDown[13]) this.clearChat();
+		if(notTooManySoundsTimer.getTimeElapsed() >= 15) {
+			waterSoundOgg.play();
+			waterSoundWav.play();
+			notTooManySoundsTimer.reset();
+		}
 	}
 
 	tPlayer.moveMe = function(new_x, new_y) {  // Quick move, causes choppy motion, don't use ever, even now
@@ -126,6 +135,10 @@ function init() {
 	// Store our player key
 	my_player_key = player.player_key;
 
+	initSounds();
+
+	notTooManySoundsTimer = new Timer();
+
 	// Start the scene
 	sc.start();
 
@@ -178,6 +191,12 @@ function updatePlayers() {
 	}
 }
 
+
+function initSounds() {
+		// Load up some sound
+	waterSoundWav = new Sound("water_sound_short.wav");
+	waterSoundOgg = new Sound("water_sound_short.ogg");
+}
 
 
 
