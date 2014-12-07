@@ -74,6 +74,8 @@ function Player(player_key) {
 	tPlayer.textbox.style.position = "absolute";	// Make position absolute
 	tPlayer.textbox.style.left = tPlayer.x;			// move the textbox
 	tPlayer.textbox.style.top = tPlayer.y;
+	tPlayer.textbox.style.zIndex = 5;				// arbitrary high z index
+	document.body.appendChild(tPlayer.textbox);
 
 	tPlayer.typeChar = function(character) {
 		this.textbox.innerHTML += character;
