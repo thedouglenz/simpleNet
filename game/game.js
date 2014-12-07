@@ -11,8 +11,9 @@ var center_y;
 var mp; 			// MultiplayerConnection Object
 var my_player_key;	// global player key
 
+var chatHelper;
 var typingTimer; 	// Timer for better typing
-var REASONABLE_TYPE_WAIT = 0.1 	// Seconds between key presses for chat
+var REASONABLE_TYPE_WAIT = 0.05 	// Seconds between key presses for chat
 
 function Player(player_key) {
 	// make a sprite
@@ -58,7 +59,8 @@ function Player(player_key) {
 		if(typingTimer.getElapsedTime() >= REASONABLE_TYPE_WAIT) {		// Handle chat characters with a typing timer
 			for(var i=0; i<chatChars[0].length; i++) {
 				if(keysDown[chatChars[0][i]]) {
-					this.typeChar(chatChars[1][i]);
+					//this.typeChar(chatChars[1][i]);
+					this.setText(chatHelper.value);
 				}
 			}
 			if(keysDown[13]) this.clearChat();
@@ -88,7 +90,9 @@ function Player(player_key) {
 	}
 
 	tPlayer.clearChat = function() {
+		chatHelper.value = "";
 		this.textbox.innerHTML = '';
+		chatHelper.focus();
 	}
 
 	tPlayer.getText = function() {
@@ -152,6 +156,12 @@ function init() {
 			players[k].moveChat();
 		}
 	});
+
+	chatHelper = document.createElement("input");
+	chatHelper.setAttribute("type", "text")
+	chatHelper.style.position = "absolute";
+	document.body.appendChild(chatHelper);
+	chatHelper.focus();
 }
 
 function playerExists(key) {
