@@ -19,7 +19,7 @@ function Player(player_key) {
 	tPlayer.renameCycles(new Array("swimming", "sitting"));
 	tPlayer.setAnimationSpeed(500);
 	tPlayer.setCurrentCycle("swimming");
-	tPlyaer.playAnimation();
+	tPlayer.playAnimation();
 	// If a player key was passed in, we can store it right away. Otherwise, this is our player and one will be generated for us.
 	tPlayer.player_key = player_key;
 
