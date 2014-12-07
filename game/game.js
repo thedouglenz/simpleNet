@@ -138,6 +138,7 @@ function init() {
 			players[k].setImgAngle(obj.heading);	//  set the image angle of other players
 			players[k].moveMe(obj.x, obj.y);		// 	move the associated player
 			players[k].setText(obj.chat);
+			players[k].moveChat();
 		}
 	});
 }
@@ -155,6 +156,7 @@ function updatePlayers() {
 	// Update our own player and broadcast its data
 	players[my_player_key].checkKeys();
 	players[my_player_key].transmit();
+	players[my_player_key].moveChat();
 	players[my_player_key].update();
 
 	// Update all the other players
