@@ -13,8 +13,13 @@ var my_player_key;	// global player key
 
 function Player(player_key) {
 	// make a sprite
-	tPlayer = new Sprite(sc, "game/fishy.gif", 100, 100); tPlayer.setSpeed(0); tPlayer.setPosition(center_x, center_y);
-
+	tPlayer = new Sprite(sc, "game/fishy_sprite_sheet.png", 100, 100); tPlayer.setSpeed(0); tPlayer.setPosition(center_x, center_y);
+	tPlayer.loadAnimation(450, 300, 150, 150);
+	tPlayer.generateAnimationCycles();
+	tPlayer.renameCycles(new Array("swimming", "sitting"));
+	tPlayer.setAnimationSpeed(500);
+	tPlayer.setCurrentCycle("swimming");
+	tPlyaer.playAnimation();
 	// If a player key was passed in, we can store it right away. Otherwise, this is our player and one will be generated for us.
 	tPlayer.player_key = player_key;
 
