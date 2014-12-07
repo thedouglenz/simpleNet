@@ -12,7 +12,7 @@ var mp; 			// MultiplayerConnection Object
 var my_player_key;	// global player key
 
 var typingTimer; 	// Timer for better typing
-var REASONABLE_TYPE_WAIT = 0.25 	// Seconds between key presses for chat
+var REASONABLE_TYPE_WAIT = 0.1 	// Seconds between key presses for chat
 
 function Player(player_key) {
 	// make a sprite
@@ -55,7 +55,7 @@ function Player(player_key) {
 		if(SOUTHEAST.condition()) {
 			this.setImgAngle(SOUTHEAST.angle);
 		}
-		if(typingTimer.getElapsedTime() >= 0.25) {		// Handle chat characters with a typing timer
+		if(typingTimer.getElapsedTime() >= REASONABLE_TYPE_WAIT) {		// Handle chat characters with a typing timer
 			for(var i=0; i<chatChars[0].length; i++) {
 				if(keysDown[chatChars[0][i]]) {
 					this.typeChar(chatChars[1][i]);
@@ -223,8 +223,8 @@ var SOUTHEAST = {
 }
 
 var chatChars = 
-	[[K_A, K_B, K_C, K_D, K_E, K_F, K_G, K_H, K_I, K_J, K_K, K_L, K_M, K_N, K_O, K_P, K_Q, K_R, K_S, K_T, K_U, K_V, K_W, K_X, K_Y, K_Z,],
-	['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']];
+	[[K_A, K_B, K_C, K_D, K_E, K_F, K_G, K_H, K_I, K_J, K_K, K_L, K_M, K_N, K_O, K_P, K_Q, K_R, K_S, K_T, K_U, K_V, K_W, K_X, K_Y, K_Z, K_SPACE],
+	['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']];
 
 /* AwesomeScene inherits from Scene and implements a repeating image background */
 function AwesomeScene() {
