@@ -11,7 +11,7 @@ var center_y;
 var mp; 			// MultiplayerConnection Object
 var my_player_key;	// global player key
 
-var chatHelper;
+var chatHelper;		// An input field that helps keep things straight during chat time
 var typingTimer; 	// Timer for better typing
 // var REASONABLE_TYPE_WAIT = 0.05 	// Seconds between key presses for chat
 
@@ -56,13 +56,12 @@ function Player(player_key) {
 		if(SOUTHEAST.condition()) {
 			this.setImgAngle(SOUTHEAST.angle);
 		}
-		for(var i=0; i<chatChars[0].length; i++) {
-			if(keysDown[chatChars[0][i]]) {
+		for(var i=0; i<keysDown.length; i++) {
+			if(keysDown[i]) {
 				this.setText(chatHelper.value);
 			}
 		}
 		if(keysDown[13]) this.clearChat();
-		typingTimer.reset();
 	}
 
 	tPlayer.moveMe = function(new_x, new_y) {  // Quick move, causes choppy motion, don't use ever, even now
@@ -81,10 +80,6 @@ function Player(player_key) {
 	tPlayer.textbox.style.top = tPlayer.y;
 	tPlayer.textbox.style.zIndex = 5;				// arbitrary high z index
 	document.body.appendChild(tPlayer.textbox);
-
-	tPlayer.typeChar = function(character) {
-		this.textbox.innerHTML += character;
-	}
 
 	tPlayer.clearChat = function() {
 		chatHelper.value = "";
@@ -134,9 +129,6 @@ function init() {
 	// Start the scene
 	sc.start();
 
-	// Start the chat/typing time
-	typingTimer = new Timer();
-
 	// setReceive is the behavior that should take place when a new update is received
 	// from the server
 	mp.setReceive(function(e) {
@@ -157,6 +149,7 @@ function init() {
 	chatHelper = document.createElement("input");
 	chatHelper.setAttribute("type", "text")
 	chatHelper.style.position = "absolute";
+	chatHelper.style.opacity = 0;
 	document.body.appendChild(chatHelper);
 	chatHelper.focus();
 }
@@ -228,10 +221,6 @@ var SOUTHEAST = {
 	condition : function() {return keysDown[K_DOWN] && keysDown[K_RIGHT]},
 	angle : 135
 }
-
-var chatChars = 
-	[[K_A, K_B, K_C, K_D, K_E, K_F, K_G, K_H, K_I, K_J, K_K, K_L, K_M, K_N, K_O, K_P, K_Q, K_R, K_S, K_T, K_U, K_V, K_W, K_X, K_Y, K_Z, K_SPACE],
-	['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']];
 
 /* AwesomeScene inherits from Scene and implements a repeating image background */
 function AwesomeScene() {
