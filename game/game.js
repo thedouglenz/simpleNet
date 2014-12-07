@@ -47,7 +47,7 @@ function init() {
 
 	// Create a scene
 	sc = new AwesomeScene();
-	sc.setTileBackground("game/bgrepeat.png"); center_x = sc.width / 2; center_y = sc.height / 2;
+	sc.setTileBackground("game/tile_water.png"); center_x = sc.width / 2; center_y = sc.height / 2;
 
 	// Create our player and register them with the multiplayer connector
 	player = new Player();
