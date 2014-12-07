@@ -24,10 +24,34 @@ function Player(player_key) {
 	tPlayer.player_key = player_key;
 
 	tPlayer.checkKeys = function() {
-		if(NORTH.condition()) this.changeYby(-1 * PLAYER_MOVE_SPEED);
-		if(SOUTH.condition()) this.changeYby(PLAYER_MOVE_SPEED);
-		if(EAST.condition()) this.changeXby(PLAYER_MOVE_SPEED);
-		if(WEST.condition()) this.changeXby(-1 * PLAYER_MOVE_SPEED);
+		if(NORTH.condition()){
+			this.changeYby(-1 * PLAYER_MOVE_SPEED);
+			this.setImgAngle(NORTH.angle);
+		}
+		if(SOUTH.condition()) {
+			this.changeYby(PLAYER_MOVE_SPEED);
+			this.setImgAngle(SOUTH.angle);
+		}
+		if(EAST.condition()) {
+			this.changeXby(PLAYER_MOVE_SPEED);
+			this.setImgAngle(EAST.angle);
+		}
+		if(WEST.condition()) {
+			this.changeXby(-1 * PLAYER_MOVE_SPEED);
+			this.setImgAngle(WEST.angle);
+		}
+		if(NORTHWEST.condition()) {
+			this.setImgAngle(NORTHWEST.angle);
+		}
+		if(NORTHEAST.condition()) {
+			this.setImgAngle(NORTHEAST.angle);
+		}
+		if(SOUTHWEST.condition()) {
+			this.setImgAngle(SOUTHWEST.angle);
+		}
+		if(SOUTHEAST.condition()) {
+			this.setImgAngle(SOUTHEAST.angle);
+		}
 	}
 
 	tPlayer.moveMe = function(new_x, new_y) {  // Quick move, causes choppy motion, don't use ever, even now
@@ -36,7 +60,7 @@ function Player(player_key) {
 	}
 
 	tPlayer.transmit = function() { // What to send to server. First arg is always a player key
-		mp.transmit(my_player_key, {x:players[my_player_key].x, y:players[my_player_key].y });
+		mp.transmit(my_player_key, {x:players[my_player_key].x, y:players[my_player_key].y, heading:players[my_player_key].getImgAngle() });
 	}
 
 	return tPlayer;
@@ -77,8 +101,9 @@ function init() {
 			players[k] = new Player(k);			// 		create a new Player
 			player_keys.push(k);				// 		add the key to list of recognized keys
 		}
-		if(k != my_player_key) {				// if the key isn't our own
-			players[k].moveMe(obj.x, obj.y);	// 		move the associated player
+		if(k != my_player_key) {					// if the key isn't our own
+			players[k].setImgAngle(obj.heading);	//  set the image angle of other players
+			players[k].moveMe(obj.x, obj.y);		// 	move the associated player
 		}
 	});
 }
@@ -116,7 +141,39 @@ function updatePlayers() {
 /*--------------------- LOGISTICAL STUFF ---------------- */
 
 /* Possible travel directions */
-var NORTH = { condition : function() {return keysDown[K_UP] } }; var SOUTH = { condition : function() {return keysDown[K_DOWN] } }; var EAST = { condition : function() {return keysDown[K_RIGHT]} }; var WEST = { condition : function() {return keysDown[K_LEFT]} };
+var NORTH = {
+	condition : function() {return keysDown[K_UP] },
+	angle : 0
+}
+var SOUTH = {
+	condition : function() {return keysDown[K_DOWN] },
+	angle : 180
+}
+var EAST = {
+	condition : function() {return keysDown[K_RIGHT]},
+	angle : 90
+}
+var WEST = {
+	condition : function() {return keysDown[K_LEFT]},
+	angle : 270
+}
+
+var NORTHWEST = {
+	condition : function() {return keysDown[K_UP] && keysDown[K_LEFT]},
+	angle : 315
+}
+var NORTHEAST = {
+	condition : function() {return keysDown[K_UP] && keysDown[K_RIGHT]},
+	angle : 45
+}
+var SOUTHWEST = {
+	condition : function() {return keysDown[K_DOWN] && keysDown[K_LEFT]},
+	angle : 225
+}
+var SOUTHEAST = {
+	condition : function() {return keysDown[K_DOWN] && keysDown[K_RIGHT]},
+	angle : 135
+}
 
 /* AwesomeScene inherits from Scene and implements a repeating image background */
 function AwesomeScene() {
