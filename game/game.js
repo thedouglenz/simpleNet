@@ -194,8 +194,8 @@ function updatePlayers() {
 
 function initSounds() {
 		// Load up some sound
-	waterSoundWav = new Sound("water_sound_short.wav");
-	waterSoundOgg = new Sound("water_sound_short.ogg");
+	waterSoundWav = new Sound("game/water_sound_short.wav");
+	waterSoundOgg = new Sound("game/water_sound_short.ogg");
 }
 
 
