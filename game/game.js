@@ -1,6 +1,7 @@
 var PLAYER_MOVE_SPEED=10; // How fast player can move
 
 var sc; 			// Scene
+var pond; 			// Sprite for the  background
 var player; 		// our player sprite
 var players;		// array of player sprites (other players and our own)
 var player_keys;	// array of the keys used to store players
@@ -177,6 +178,7 @@ function playerExists(key) {
 function update() {
 	sc.clear();
 	updatePlayers();
+	pond.update();
 }
 
 function updatePlayers() {
