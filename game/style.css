@@ -1,5 +1,6 @@
 #chatbox {
 	font-family: Courier;
+	font-weight: bold;
 	font-size: 12;
 	max-width: 100px;	
 }
