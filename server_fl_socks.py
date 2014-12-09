@@ -17,6 +17,10 @@ class GameServer(object):
 def root():
 	return send_from_directory('game', 'index.html')
 
+@app.route('/help')
+def help():
+	return send_from_directory('help', 'manual.html')
+
 @app.route('/<any(css, img, js, sound):folder>/<path:filename>')
 def toplevel_static(folder, filename):
     filename = safe_join(folder, filename)
