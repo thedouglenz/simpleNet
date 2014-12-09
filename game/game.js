@@ -1,7 +1,7 @@
 var PLAYER_MOVE_SPEED=10; // How fast player can move
 
 var sc; 			// Scene
-var pond; 			// Sprite for the  background
+//var pond; 			// Sprite for the  background
 var player; 		// our player sprite
 var players;		// array of player sprites (other players and our own)
 var player_keys;	// array of the keys used to store players
@@ -123,10 +123,10 @@ function init() {
 
 	// Create a scene
 	sc = new AwesomeScene();
-	pond = new Sprite(sc, "game/koipond.png", 800, 600);
-    pond.setPosition(400, 300);
-    pond.setSpeed(0);
-	//sc.setTileBackground("game/tile_water.png"); center_x = sc.width / 2; center_y = sc.height / 2;
+	//pond = new Sprite(sc, "game/koipond.png", 800, 600);
+    //pond.setPosition(400, 300);
+    //pond.setSpeed(0);
+	sc.setTileBackground("game/koipond.png"); center_x = sc.width / 2; center_y = sc.height / 2;
 
 	// Create our player and register them with the multiplayer connector
 	player = new Player();
@@ -177,7 +177,7 @@ function playerExists(key) {
 
 function update() {
 	sc.clear();
-	pond.update();
+	//pond.update();
 	updatePlayers();
 }
 
