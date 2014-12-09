@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640px"
+   height="480px"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="game_design.svg">
+  <defs
+     id="defs2987" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.5494505"
+     inkscape:cx="320.13026"
+     inkscape:cy="228.49906"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:window-width="1879"
+     inkscape:window-height="1056"
+     inkscape:window-x="41"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="15.489362"
+       y="21.773046"
+       id="text3012"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="15.489362"
+         y="21.773046"
+         id="tspan3016">koi chat design documentation</tspan></text>
+    <path
+       style="fill:#ff7f2a;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       d="m 339.47518,224.74822 c -25.81561,5.27353 -11.87252,50.9815 -27.21408,56.83476 -3.75709,1.43344 4.1531,-22.95178 -0.86039,-22.95178 -6.32691,0 -8.25911,28.29624 -11.25384,27.58202 -9.06835,-2.16272 6.23278,-39.51541 18.67583,-64.69195 3.07338,-6.21851 7.75267,-15.69418 13.81473,-25.58228 1.7047,-2.78061 -62.31105,22.15795 4.14638,-14.18491 3.34879,-1.83131 5.75686,-0.43713 8.18244,-3.41023 13.22982,-16.21615 29.98309,-28.78357 43.23588,-28.78357 12.43446,0 6.41472,16.82024 -5.58712,34.57349 -2.12284,3.14012 -6.36899,35.99738 -8.79711,39.10796 -2.4707,3.16514 -3.12755,-23.41847 -5.77017,-20.46755 -10.1713,11.3579 -21.07745,20.44296 -28.57255,21.97404 z"
+       id="path3020"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssssss" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="396.2695"
+       y="166.98579"
+       id="text3023"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3025"
+         x="396.2695"
+         y="166.98579"
+         style="font-size:12px">player is a koi fish</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="378.12637"
+       y="201.79594"
+       id="text3023-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3025-4"
+         x="378.12637"
+         y="201.79594"
+         style="font-size:12px">player chats by typing</tspan><tspan
+         sodipodi:role="line"
+         x="378.12637"
+         y="216.79594"
+         style="font-size:12px"
+         id="tspan3048">on their keyboard</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16.44994164px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="347.62033"
+       y="238.82538"
+       id="text3023-0"
+       sodipodi:linespacing="125%"
+       transform="scale(0.97264788,1.0281213)"><tspan
+         sodipodi:role="line"
+         id="tspan3025-40"
+         x="347.62033"
+         y="238.82538"
+         style="font-size:12.33745575px">chat messages appear</tspan><tspan
+         sodipodi:role="line"
+         x="347.62033"
+         y="254.24719"
+         style="font-size:12.33745575px"
+         id="tspan3059">in real-time. disappear</tspan><tspan
+         sodipodi:role="line"
+         x="347.62033"
+         y="269.66901"
+         style="font-size:12.33745575px"
+         id="tspan3061">after ENTER</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3063"
+       sodipodi:cx="378.52127"
+       sodipodi:cy="155.36879"
+       sodipodi:rx="4.8404255"
+       sodipodi:ry="3.8723404"
+       d="m 383.3617,155.36879 a 4.8404255,3.8723404 0 1 1 -9.68085,0 4.8404255,3.8723404 0 1 1 9.68085,0 z"
+       transform="translate(-1.2907802,-1.9361702)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3063-2"
+       sodipodi:cx="378.52127"
+       sodipodi:cy="155.36879"
+       sodipodi:rx="4.8404255"
+       sodipodi:ry="3.8723404"
+       d="m 383.3617,155.36879 a 4.8404255,3.8723404 0 1 1 -9.68085,0 4.8404255,3.8723404 0 1 1 9.68085,0 z"
+       transform="translate(11.939725,9.0354636)" />
+    <path
+       style="fill:#ff7f2a;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       d="m 104.53334,276.56151 c -3.99102,-26.04472 -50.33232,-14.37803 -55.420089,-29.99017 -1.245974,-3.82335 22.718435,5.28254 22.966252,0.27518 0.312741,-6.31918 -27.853401,-9.64771 -26.992024,-12.60347 2.608327,-8.95036 39.159019,8.17841 63.689721,21.85073 6.05899,3.37701 15.29178,8.51896 24.86814,15.06238 2.69295,1.84006 -19.05082,-63.33015 13.96261,4.84248 1.66354,3.43522 0.15204,5.77143 3.00161,8.341 15.54237,14.01522 27.26632,31.36922 26.61123,44.60581 -0.61464,12.41926 -17.11677,5.57545 -34.25506,-7.28926 -3.03135,-2.27546 -35.63856,-8.14056 -38.62531,-10.71947 -3.03914,-2.62413 23.54444,-1.96615 20.72775,-4.7514 -10.84125,-10.72029 -19.37611,-22.06219 -20.53483,-29.62381 z"
+       id="path3020-0"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssssss" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3063-9"
+       sodipodi:cx="378.52127"
+       sodipodi:cy="155.36879"
+       sodipodi:rx="4.8404255"
+       sodipodi:ry="3.8723404"
+       d="m 383.3617,155.36879 a 4.8404255,3.8723404 0 1 1 -9.68085,0 4.8404255,3.8723404 0 1 1 9.68085,0 z"
+       transform="matrix(-0.04943017,0.99877758,-0.99877758,-0.04943017,349.01015,-51.229834)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path3063-2-8"
+       sodipodi:cx="378.52127"
+       sodipodi:cy="155.36879"
+       sodipodi:rx="4.8404255"
+       sodipodi:ry="3.8723404"
+       d="m 383.3617,155.36879 a 4.8404255,3.8723404 0 1 1 -9.68085,0 4.8404255,3.8723404 0 1 1 9.68085,0 z"
+       transform="matrix(-0.04943017,0.99877758,-0.99877758,-0.04943017,337.39794,-38.557844)" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="70.992905"
+       y="354.79434"
+       id="text3128"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3130"
+         x="70.992905"
+         y="354.79434">other players are koi fish</tspan><tspan
+         sodipodi:role="line"
+         x="70.992905"
+         y="369.79434"
+         id="tspan3132">and behave like player</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="409.82269"
+       y="432.88651"
+       id="text3134"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3136"
+         x="409.82269"
+         y="432.88651">beautiful background</tspan><tspan
+         sodipodi:role="line"
+         x="409.82269"
+         y="447.88651"
+         id="tspan3138">made with Gimp</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="305.91489"
+       y="292.1915"
+       id="text3140"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3142"
+         x="305.91489"
+         y="292.1915">player moves around</tspan><tspan
+         sodipodi:role="line"
+         x="305.91489"
+         y="307.1915"
+         id="tspan3144">using arrow keys</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Century Schoolbook L;-inkscape-font-specification:Century Schoolbook L Medium"
+       x="91"
+       y="112.77305"
+       id="text3146"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3148"
+         x="91"
+         y="112.77305">All players see exact</tspan><tspan
+         sodipodi:role="line"
+         x="91"
+         y="127.77305"
+         id="tspan3150">location of all other</tspan><tspan
+         sodipodi:role="line"
+         x="91"
+         y="142.77304"
+         id="tspan3152">players in real-time</tspan></text>
+  </g>
+</svg>
