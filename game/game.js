@@ -177,8 +177,8 @@ function playerExists(key) {
 
 function update() {
 	sc.clear();
-	updatePlayers();
 	pond.update();
+	updatePlayers();
 }
 
 function updatePlayers() {
