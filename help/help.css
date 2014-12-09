@@ -1,0 +1,25 @@
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #CCFFCC;
+	font-family: Arial;
+}
+
+h1 {
+	color: Green;
+}
+
+code {
+	background-color: #CCDDBB;
+	border: 1px grey solid;
+	padding: 2px;
+}
+
+a {
+	color: Green;
+	text-decoration: none;
+}
+
+.title-block, .text-block {
+	width:60%;
+}

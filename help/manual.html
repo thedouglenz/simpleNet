@@ -1,0 +1,55 @@
+<html>
+
+	<head>
+		<title>simpleNet and koi fish Help</title>
+		<link rel="stylesheet" type="text/css" href="help.css">
+	</head>
+	
+	<body>
+		<div class="title-block">
+			<h1>simpleNet WebSocket server container for SimpleGame.js + koi fish sample game</h1>
+			<p>This container for HTML5 games is implemented in Python and uses <a href="http://flask.pocoo.org/">Flask</a>, a web devleopment framework for Python. It is ready to deploy to <a href="heroku.com">heroku</a> with a sample game called <strong>koi chat</strong>. The sample game that is included uses the SimpleGame.js game engine written by Andy Harris.</p>
+		</div>
+		<div class="text-block">
+			<h2>Setup instructions</h2>
+			<ol>
+				<li>Install the <a href="https://toolbelt.heroku.com/">heroku toolbelt</a></li>
+				<li>Create a new Python virtual environment in the directory you wish to work in. <a href="http://docs.python-guide.org/en/latest/starting/install/linux/">Here's a decent guide to get start using Python with venv and pip</a></li>
+				<li>Drop these files in your directory</li>
+				<li>Install requirements listed in requirements.txt. This can be done in a simple command, <code>pip install -r requirements.txt</code></li>
+				<li>Create a gitignore file for the new libraries under venv/ and any file with the extension .pyc.
+				<li>Store your app via git</li>
+				<li>Run <code>heroku create</code></li>
+				<li>Deploy to heroku via <code>git push heroku master</code></li>
+				<li><code>heroku open</code> will open the sample game, <strong>koi chat</strong></li>
+				<li>Replace the sample game with your own game.
+			</ol>
+
+			<h2>Development instructions</h2>
+			<h3>Basics</h3>
+			<p>simpleNet is a web server application as well as a WebSocket server. If you follow the directory structure that the sample game uses, your game will work out of the box</p>
+			<p>All your game needs to do is connect to the host it is already on, accessible by Javascript: <code> location.host </code>, and head to <code>/broadcast</code> and you will have a socket server set up to broadcast game data. If you use SimpleGame.js, by Andy Harris, many of the methods you need are already encapsulated. If you use another engine, you will have to write your own methods to send and receive data to and from the server.</p>
+
+			<h3>What methods are encapsulated if I use SimpleGame.js?</h3>
+			
+			<p><strong><code>MultiplayerConnection(type)</code></strong> To create a new multiplayer connection object in JavaScript using SimpleGame.js as your engine, just create a <code>new MultiplayerConnection('broadcast')</code>, making sure to specify "broadcast" as the type.</p>
+			
+			<p>The rest of the functions are encapsulated in the MultiplayerConnection object.</p>
+			
+			<p><strong><code>.ready()</code></strong> Tells you whether the connection object connected successfully and is ready to send and receive</p>
+
+			<p><strong><code>.setReceive(f)</code></strong> Takes a user defined function to call everytime new data is received. I strongly recommend sending data back and forth in JSON so that you can easily send full objects and parse messages uniformly on both ends. Your user defined function will need to take one parameter, <code>e</code>, or <code>data</code> or whatever into which the received data will go, i.e., <code>e.data</code></p>
+
+			<p><strong><code>.transmit(player_key, data_object)</code></strong> Takes a player key for the current player and an object representing all the data you want to transmit regularly to all other clients. This is the core unit of your broadcast and should be done as often as possible. In SimpleGame.js, a good place to call this function is in within the update function you overwrite for your game.</p>
+
+			<p><strong><code>.addPlayer()</code></strong> Each client who has a player in a game needs to add themself to the multiplayer connection. You only have to do this once per client. The server will save all current players automatically after they have been registered.</p>
+
+			<h3>How does this change the way I develop games</h3>
+			<p> The only difference apart from new features that you need to concern yourself with is that you will now have to keep track of more than one player. While you may have once made games that had a single player, you may now wish to store all players in an array or some other data structure. Other player information will be coming in through the <strong>function you defined for setReceive</strong>.
+
+		</div>
+
+	<small>Douglas Lenz 2014</small>
+	</body>
+
+</html>
