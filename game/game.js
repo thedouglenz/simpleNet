@@ -122,7 +122,7 @@ function init() {
 
 	// Create a scene
 	sc = new AwesomeScene();
-	pond = new Sprite(scene, "game/koipond.png", 800, 600);
+	pond = new Sprite(sc, "game/koipond.png", 800, 600);
     pond.setPosition(400, 300);
     pond.setSpeed(0);
 	//sc.setTileBackground("game/tile_water.png"); center_x = sc.width / 2; center_y = sc.height / 2;
