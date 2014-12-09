@@ -122,7 +122,10 @@ function init() {
 
 	// Create a scene
 	sc = new AwesomeScene();
-	sc.setTileBackground("game/tile_water.png"); center_x = sc.width / 2; center_y = sc.height / 2;
+	pond = new Sprite(scene, "game/koipond.png", 800, 600);
+    pond.setPosition(400, 300);
+    pond.setSpeed(0);
+	//sc.setTileBackground("game/tile_water.png"); center_x = sc.width / 2; center_y = sc.height / 2;
 
 	// Create our player and register them with the multiplayer connector
 	player = new Player();
