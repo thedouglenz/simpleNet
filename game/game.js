@@ -257,7 +257,7 @@ function AwesomeScene() {
 	return scene;
 }
 
-var goodColors = ["3399FF", "FF6699", "CCFF33", "33CC33", "FF3300", "CC0099", "CC9900", "00CC66"];
+var goodColors = ["3399FF", "CCFF33", "33CC33", "FF3300", "CC0099", "CC9900", "00CC66"];
 
 function randomGoodColor() {
 	return goodColors[Math.floor(Math.random() * (goodColors.length-1 + 1) + 0)];
