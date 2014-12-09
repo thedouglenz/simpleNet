@@ -108,6 +108,7 @@ function Player(player_key) {
 	tPlayer.moveChat = function() {
 		this.textbox.style.left = this.x;
 		this.textbox.style.top = this.y;
+		chatHelper.value = chatHelper.value; // Hack to fix cursor repositioning
 	}
 
 	return tPlayer;
