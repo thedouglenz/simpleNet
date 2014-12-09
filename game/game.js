@@ -1,7 +1,6 @@
 var PLAYER_MOVE_SPEED=10; // How fast player can move
 
 var sc; 			// Scene
-//var pond; 			// Sprite for the  background
 var player; 		// our player sprite
 var players;		// array of player sprites (other players and our own)
 var player_keys;	// array of the keys used to store players
@@ -29,8 +28,8 @@ function Player(player_key) {
 	tPlayer.setAnimationSpeed(500);
 	tPlayer.setCurrentCycle("swimming");
 	tPlayer.playAnimation();
-	// If a player key was passed in, we can store it right away. Otherwise, this is our player and one will be generated for us.
-	tPlayer.player_key = player_key;
+
+	tPlayer.player_key = player_key;	// If a player key was passed in, we can store it right away. Otherwise, this is our player and one will be generated for us.
 
 	tPlayer.checkKeys = function() {
 		if(NORTH.condition()){
@@ -74,7 +73,7 @@ function Player(player_key) {
 		}
 	}
 
-	tPlayer.moveMe = function(new_x, new_y) {  // Quick move, causes choppy motion, don't use ever, even now
+	tPlayer.moveMe = function(new_x, new_y) {
 		this.x = new_x;
 		this.y = new_y;
 	}
@@ -83,7 +82,7 @@ function Player(player_key) {
 		mp.transmit(my_player_key, {x:players[my_player_key].x, y:players[my_player_key].y, heading:players[my_player_key].getImgAngle(), chat:players[my_player_key].getText() });
 	}
 
-	tPlayer.textbox = document.createElement("p");	// create a paragraph
+	tPlayer.textbox = document.createElement("h2");	// create a paragraph
 	tPlayer.textbox.setAttribute("id", "chatbox");  // set id for css 
 	tPlayer.textbox.style.position = "absolute";	// Make position absolute
 	tPlayer.textbox.style.left = tPlayer.x;			// move the textbox
@@ -115,41 +114,29 @@ function Player(player_key) {
 }
 
 function init() {
-	// Keep an array of players and player keys for fast key search
-	players = {};
+	players = {};				// Keep an array of players and player keys for fast key search
 	player_keys = Array();
 
-	// Start a new Multiplayer connection
-	mp = new MultiplayerConnection('broadcast');
+	mp = new MultiplayerConnection('broadcast');	// Start a new Multiplayer connection
 
-	// Create a scene
-	sc = new AwesomeScene();
-	//pond = new Sprite(sc, "game/koipond.png", 800, 600);
-    //pond.setPosition(400, 300);
-    //pond.setSpeed(0);
+	sc = new AwesomeScene();	// Create a scene
 	sc.setTileBackground("game/koipond.png"); center_x = sc.width / 2; center_y = sc.height / 2;
 
-	// Create our player and register them with the multiplayer connector
-	player = new Player();
+	player = new Player();	// Create our player and register them with the multiplayer connector
 	mp.addPlayer(player);
 
-	// Remember our new key and store our player in an object structure
-	player_keys.push(player.player_key);
+	player_keys.push(player.player_key);	// Remember our new key and store our player in an object structure
 	players[player.player_key] = player;
 
-	// Store our player key
-	my_player_key = player.player_key;
+	my_player_key = player.player_key;	// Store our player key
 
 	initSounds();
 
 	notTooManySoundsTimer = new Timer();
 
-	// Start the scene
-	sc.start();
+	sc.start();	// Start the scene
 
-	// setReceive is the behavior that should take place when a new update is received
-	// from the server
-	mp.setReceive(function(e) {
+	mp.setReceive(function(e) {	// setReceive is the behavior that should take place when a new update is received from the server
 		obj = JSON.parse(e.data);				// parse the json string
 		k = obj.player_key;						// store the key that should have been broadcasted
 		if(!playerExists(k)) {					// if a new key is found
@@ -178,25 +165,21 @@ function playerExists(key) {
 
 function update() {
 	sc.clear();
-	//pond.update();
 	updatePlayers();
 }
 
-function updatePlayers() {
-	// Update our own player and broadcast its data
+function updatePlayers() {	// Update our own player and broadcast its data
 	players[my_player_key].checkKeys();
 	players[my_player_key].transmit();
 	players[my_player_key].moveChat();
 	players[my_player_key].update();
 
-	// Update all the other players
-	for(var key in players) {
+	for(var key in players) {	// Update all the other players
 		if(key != my_player_key) {
 			players[key].update();
 		}
 	}
 }
-
 
 function initSounds() {
 		// Load up some sound
