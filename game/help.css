@@ -23,3 +23,8 @@ a {
 .title-block, .text-block {
 	width:60%;
 }
+
+.note-block {
+	width:60%;
+	background-color: #FFFF66;
+}
