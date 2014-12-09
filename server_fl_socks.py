@@ -19,7 +19,7 @@ def root():
 
 @app.route('/help')
 def help():
-	return send_from_directory('help', 'manual.html')
+	return send_from_directory('game', 'manual.html')
 
 @app.route('/<any(css, img, js, sound):folder>/<path:filename>')
 def toplevel_static(folder, filename):
