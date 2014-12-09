@@ -89,6 +89,7 @@ function Player(player_key) {
 	tPlayer.textbox.style.left = tPlayer.x;			// move the textbox
 	tPlayer.textbox.style.top = tPlayer.y;
 	tPlayer.textbox.style.zIndex = 5;				// arbitrary high z index
+	tPlayer.textbox.style.color = randomGoodColor(); // Random color text
 	document.body.appendChild(tPlayer.textbox);
 
 	tPlayer.clearChat = function() {
@@ -254,4 +255,10 @@ function AwesomeScene() {
 		scene.canvas.style.backgroundRepeat = "repeat";
 	}
 	return scene;
+}
+
+var goodColors = ["3399FF", "FF6699", "CCFF33", "33CC33", "FF3300", "CC0099", "CC9900", "00CC66"];
+
+function randomGoodColor() {
+	return goodColors[Math.floor(Math.random() * (goodColors.length-1 + 1) + 0)];
 }
